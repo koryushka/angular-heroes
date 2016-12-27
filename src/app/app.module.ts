@@ -5,8 +5,11 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module'
 
 import { AppComponent } from './app.component';
-import { HeroComponent } from './hero/hero.component';
-import { HeroDetailComponent } from './hero/hero-detail.component';
+import { HeroService } from './heroes/hero.service';
+
+import { HeroComponent } from './heroes/hero.component';
+import { HeroDetailComponent } from './heroes/hero-detail.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -14,7 +17,8 @@ import { HeroDetailComponent } from './hero/hero-detail.component';
   declarations: [
     AppComponent,
     HeroComponent,
-    HeroDetailComponent
+    HeroDetailComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,7 @@ import { HeroDetailComponent } from './hero/hero-detail.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [HeroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
