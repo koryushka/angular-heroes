@@ -37,4 +37,9 @@ export class HeroDetailComponent {
                     .then(() => this.goBack())
   }
 
+  deleteHero(hero: Hero): void{
+    this.heroService.deleteHero(hero.id).then(() => this.goBack())
+
+  }
+
 }
