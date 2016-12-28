@@ -13,6 +13,11 @@ import { HeroComponent } from './heroes/hero.component';
 import { HeroDetailComponent } from './heroes/hero-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { HighlightDirective } from './highlight.directive';
+
+import './rxjs-extensions';
+import { LoginComponent } from './login/login.component';
+
 
 
 @NgModule({
@@ -21,7 +26,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeroComponent,
     HeroDetailComponent,
     HeroSearchComponent,
-    DashboardComponent
+    DashboardComponent,
+    HighlightDirective,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,

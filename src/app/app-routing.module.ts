@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeroComponent } from './heroes/hero.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './heroes/hero-detail.component';
+import { LoginComponent } from './login/login.component';
+
 
 
 
@@ -14,7 +16,8 @@ const routes: Routes = [
   },
   {path: 'heroes', component: HeroComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'heroes/:id', component: HeroDetailComponent}
+  {path: 'heroes/:id', component: HeroDetailComponent},
+  { path: 'login', component: LoginComponent}
 ]
 
 @NgModule({

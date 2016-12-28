@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
+// import 'rxjs/add/operator/debounceTime';
+// import 'rxjs/add/operator/distinctUntilChanged';
 import { Subject }           from 'rxjs/Subject';
 import { HeroSearchService } from './hero-search.service';
 import { Hero } from './hero';
