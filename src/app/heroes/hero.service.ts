@@ -10,7 +10,12 @@ import { HEROES } from './mock-heroes';
 
 export class HeroService {
   private heroesUrl = isDevMode() ? 'http://localhost:3000/heroes' : 'https://rails-heroes.herokuapp.com/heroes'
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private authToken = localStorage.getItem('auth_token');
+
+  private headers = new Headers({'Content-Type': 'application/json', 'Authorization': `Bearer ${this.authToken}`})
+
+  // headers.append('Authorization', `Bearer ${authToken}`);
+  // console.debug("HEADRES: ", headers)
   constructor(private http: Http) {
      console.log(isDevMode());
    }
@@ -22,6 +27,8 @@ export class HeroService {
   }
 
   getHero(id: number): Promise<Hero> {
+    console.debug("HEADRES: ", this.headers)
+
     let heroUrl = `${this.heroesUrl}/${id}`;
     return this.http.get(heroUrl)
                .toPromise()

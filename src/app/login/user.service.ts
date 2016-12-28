@@ -14,21 +14,21 @@ export class UserService {
   login(username, password) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
+    let params = `${this.loginUrl}?username=${username}&password=${password}&grant_type=password`
     return this.http
       .post(
-        '/login',
-        JSON.stringify({ username, password }),
-        { headers }
+        params,{},{ headers }
       )
       .map(res => res.json())
       .map((res) => {
-        if (res.success) {
-          localStorage.setItem('auth_token', res.auth_token);
+        console.debug("RES: ", res)
+
+        if (res) {
+          localStorage.setItem('auth_token', res.access_token);
           this.loggedIn = true;
         }
 
-        return res.success;
+        return res;
       });
   }
 
