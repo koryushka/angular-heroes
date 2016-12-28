@@ -2,6 +2,8 @@ import { Injectable,isDevMode } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
+import { UserService } from '../login/user.service'
+
 
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
@@ -9,16 +11,19 @@ import { HEROES } from './mock-heroes';
 @Injectable()
 
 export class HeroService {
+  private authToken: string;
+  private headers: Headers;
   private heroesUrl = isDevMode() ? 'http://localhost:3000/heroes' : 'https://rails-heroes.herokuapp.com/heroes'
-  private authToken = localStorage.getItem('auth_token');
 
-  private headers = new Headers({'Content-Type': 'application/json', 'Authorization': `Bearer ${this.authToken}`})
 
   // headers.append('Authorization', `Bearer ${authToken}`);
   // console.debug("HEADRES: ", headers)
-  constructor(private http: Http) {
-     console.log(isDevMode());
-   }
+  constructor(private http: Http, userService: UserService) {
+    this.authToken = userService.authToken;
+    this.headers = userService.headers;
+    console.debug("HEADERS: ", this.headers)
+  }
+
   getHeroes(): Promise<Hero[]> {
     return this.http.get(this.heroesUrl)
                .toPromise()
@@ -27,7 +32,7 @@ export class HeroService {
   }
 
   getHero(id: number): Promise<Hero> {
-    console.debug("HEADRES: ", this.headers)
+    // console.debug("HEADRES: ", this.headers)
 
     let heroUrl = `${this.heroesUrl}/${id}`;
     return this.http.get(heroUrl)

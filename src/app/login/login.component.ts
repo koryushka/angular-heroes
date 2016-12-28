@@ -9,20 +9,22 @@ import { UserService } from './user.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  constructor(private userService: UserService, private router: Router) {}
-
-  onSubmit(email, password) {
-    console.debug('SUB: ', email)
-
-    this.userService.login(email, password)
-      .subscribe((result) => {
-        console.debug('RESP: ', result)
-        
-        if (result) {
-          console.debug('RESP: ', result)
-          this.router.navigate(['']);
-        }
-      });
-
-  }
+  // constructor(private userService: UserService, private router: Router) {
+  //   this.loggedIn = !!localStorage.getItem('currentUser');
+  // }
+  // loggedIn:boolean;
+  // onSubmit(email, password) {
+  //   this.userService.login(email, password)
+  //     .subscribe((result) => {
+  //       if (result) {
+  //         this.router.navigate(['']);
+  //       }
+  //     });
+  //
+  // }
+  //
+  // logout(){
+  //   this.userService.logout()
+  //   this.loggedIn = false
+  // }
 }

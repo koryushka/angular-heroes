@@ -17,6 +17,7 @@ import { HighlightDirective } from './highlight.directive';
 
 import './rxjs-extensions';
 import { LoginComponent } from './login/login.component';
+import { LoggedInGuard } from './login/logged-in.guard';
 import { UserService } from './login/user.service';
 
 
@@ -42,7 +43,8 @@ import { UserService } from './login/user.service';
   providers: [
     HeroService,
     HeroSearchService,
-    UserService
+    UserService,
+    LoggedInGuard
   ],
   bootstrap: [AppComponent]
 })

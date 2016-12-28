@@ -4,9 +4,7 @@ import { HeroComponent } from './heroes/hero.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './heroes/hero-detail.component';
 import { LoginComponent } from './login/login.component';
-
-
-
+import { LoggedInGuard } from './login/logged-in.guard';
 
 const routes: Routes = [
   {
@@ -25,3 +23,4 @@ const routes: Routes = [
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}
+// , canActivate:[LoggedInGuard]
