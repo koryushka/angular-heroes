@@ -41,7 +41,7 @@ export class HeroComponent implements OnInit {
     this.heroService.createHero(name)
         .then(
           hero =>{
-            this.heroes.push(hero);
+            this.heroes.unshift(hero);
             this.selectedHero = null;
           }
         )

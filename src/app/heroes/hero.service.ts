@@ -1,6 +1,6 @@
 import { Injectable,isDevMode } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 
 import { Hero } from './hero';
@@ -15,7 +15,6 @@ export class HeroService {
      console.log(isDevMode());
    }
   getHeroes(): Promise<Hero[]> {
-    // return Promise.resolve(HEROES);
     return this.http.get(this.heroesUrl)
                .toPromise()
                .then(response => response.json() as Hero[])
@@ -23,8 +22,6 @@ export class HeroService {
   }
 
   getHero(id: number): Promise<Hero> {
-    // return this.getHeroes()
-    //            .then(heroes => heroes.find(hero => id === hero.id))
     let heroUrl = `${this.heroesUrl}/${id}`;
     return this.http.get(heroUrl)
                .toPromise()
@@ -54,6 +51,7 @@ export class HeroService {
                     .then(() => null)
                     .catch(this.handleError)
   }
+
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module'
 
 import { AppComponent } from './app.component';
 import { HeroService } from './heroes/hero.service';
+import { HeroSearchService } from './heroes/hero-search.service';
+import { HeroSearchComponent } from './heroes/hero-search.component';
 
 import { HeroComponent } from './heroes/hero.component';
 import { HeroDetailComponent } from './heroes/hero-detail.component';
@@ -18,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppComponent,
     HeroComponent,
     HeroDetailComponent,
+    HeroSearchComponent,
     DashboardComponent
   ],
   imports: [
@@ -26,7 +29,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [HeroService],
+  providers: [
+    HeroService,
+    HeroSearchService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
