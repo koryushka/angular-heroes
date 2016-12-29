@@ -8,32 +8,15 @@ import { User } from './login/user'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers:[UserService]
 })
 export class AppComponent {
   title = 'app works!';
-  user: User;
-  currentEmail: string;
-  loggedIn: boolean;
-
-  constructor(private userService: UserService, private router: Router) {
-    this.loggedIn = !!localStorage.getItem('currentUser') || this.userService.loggedIn;
-    this.currentEmail = localStorage.getItem('currentUser')
-    console.debug("Logged in: ", this.userService.loggedIn)
-
-  }
-  onSubmit(email, password) {
-    this.userService.login(email, password)
-      .subscribe((result) => {
-        if (result) {
-          this.router.navigate(['']);
-        }
-      });
-
-  }
-
-  logout(){
-    this.userService.logout()
-    this.loggedIn = false
+  loggedIn = !!localStorage.getItem('currentUser');
+  constructor(private userService: UserService){}
+  myValueChange(event) {
+    console.log("MyEvent: ",event);
+    this.loggedIn = event.loggedIn
   }
 }

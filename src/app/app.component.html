@@ -1,38 +1,4 @@
-<p [hidden]='!loggedIn'>
-  {{currentEmail}}
-  <button  (click)='logout();'>Logout</button>
-</p>
-<form [hidden]='loggedIn' (ngSubmit)="onSubmit(email.value, password.value)" #loginForm="ngForm">
-          <div class="form-group">
-            <label for="email"></label>
-            <input  type='text'
-                    required
-                    name='email'
-                    placeholder='Email'
-                    #email
-            >
-          </div>
-          <div class="form-group">
-            <label for="password"></label>
-            <input  type='password'
-                    required
-                    placeholder='Password'
-                    name='password'
-                    #password
-            >
-
-          </div>
-          <button class="btn btn-outline-info btn-lg"
-            >
-              Log me in
-        </button>
-        </form>
-
-<a routerLink='heroes'>Heroes</a>
-<a routerLink='dashboard'>Dashboard</a>
-
-
-
-
-
+<login (loginChanged)='myValueChange($event)' [userLoggedIn]='loggedIn'></login>
+<!-- <app-hero [userLoggedIn]='loggedIn'></app-hero> -->
+<!-- <dashboard></dashboard> -->
 <router-outlet></router-outlet>

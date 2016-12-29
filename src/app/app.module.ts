@@ -19,9 +19,7 @@ import './rxjs-extensions';
 import { LoginComponent } from './login/login.component';
 import { LoggedInGuard } from './login/logged-in.guard';
 import { UserService } from './login/user.service';
-
-
-
+import { HttpClient } from './login/http-client';
 
 @NgModule({
   declarations: [
@@ -44,7 +42,8 @@ import { UserService } from './login/user.service';
     HeroService,
     HeroSearchService,
     UserService,
-    LoggedInGuard
+    LoggedInGuard,
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })

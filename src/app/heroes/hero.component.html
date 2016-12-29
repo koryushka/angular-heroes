@@ -5,16 +5,17 @@
   <label >Hero name:</label> <input #heroName />
   <button (click)="addHero(heroName.value); heroName.value=''">Add</button>
 </div>
-
+{{userLoggedIn}}
 <ul class="heroes">
   <li *ngFor='let hero of heroes' (click)='selectHero(hero)' [class.selected]="hero === selectedHero">
     <span class="badge">{{hero.id}}</span> {{hero.name}}
     <button class="delete"
-      (click)="deleteHero(hero); $event.stopPropagation()">x</button>
+      (click)="deleteHero(hero); $event.stopPropagation()"
+      [hidden]='false'>x</button>
   </li>
 </ul>
 <!--
-<hero-detail *ngIf='selectedHero' [hero]='selectedHero'>
+<hero-detail *ngIf='selectedHero' [hero]='selectedHero'> userLoggedIn
 
 </hero-detail> -->
 

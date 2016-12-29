@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router }   from '@angular/router';
 import { Headers } from '@angular/http';
 import { Hero } from './hero';
 import { HeroService } from './hero.service'
+import { UserService } from '../login/user.service'
 
 
 
@@ -16,8 +17,13 @@ import { HeroService } from './hero.service'
 export class HeroComponent implements OnInit {
   selectedHero: Hero;
   heroes: Hero[];
+  permissionsError: boolean;
+  loggedIn: boolean;
+  @Input() userLoggedIn:boolean;
 
-  constructor(private router: Router, private heroService: HeroService) { }
+  constructor(private router: Router, private heroService: HeroService, private userService: UserService) {
+    this.loggedIn = this.userService.isLoggedIn();
+  }
 
   ngOnInit(){
     this.getHeroes()
