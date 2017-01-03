@@ -2,16 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router }   from '@angular/router';
 import { Headers } from '@angular/http';
 import { Hero } from './hero';
-import { HeroService } from './hero.service'
-import { UserService } from '../login/user.service'
-
-
+import { HeroService } from '../_services/hero.service'
+import { UserService } from '../_services/user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.css'],
-  providers: [HeroService]
+  providers: [HeroService, UserService]
 })
 
 export class HeroComponent implements OnInit {
@@ -19,7 +18,8 @@ export class HeroComponent implements OnInit {
   heroes: Hero[];
   permissionsError: boolean;
   loggedIn: boolean;
-  @Input() userLoggedIn:boolean;
+  // @Input() userLoggedIn:boolean;
+  @Input() userLoggedIn:Observable<boolean>;
 
   constructor(private router: Router, private heroService: HeroService, private userService: UserService) {
     this.loggedIn = this.userService.isLoggedIn();
@@ -30,7 +30,12 @@ export class HeroComponent implements OnInit {
   }
 
   getHeroes(){
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+
+    this.heroService.getHeroes().then(
+      heroes => {
+        this.heroes = heroes;
+        }
+    );
   }
 
   selectHero(hero: Hero): void{

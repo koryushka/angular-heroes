@@ -2,10 +2,9 @@ import { Injectable,isDevMode } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
-import { UserService } from '../login/user.service'
+import { UserService } from '../_services/user.service'
 import { HttpClient } from '../login/http-client'
-import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
+import { Hero } from '../heroes/hero';
 
 @Injectable()
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { UserService } from './login/user.service';
+import { UserService } from './_services/user.service';
 import { Router } from '@angular/router';
 
-import { User } from './login/user'
+import { User } from './_models/user'
 
 
 @Component({
@@ -14,7 +14,9 @@ import { User } from './login/user'
 export class AppComponent {
   title = 'app works!';
   loggedIn = !!localStorage.getItem('currentUser');
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService){
+    
+  }
   myValueChange(event) {
     console.log("MyEvent: ",event);
     this.loggedIn = event.loggedIn
