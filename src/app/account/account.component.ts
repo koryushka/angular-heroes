@@ -20,13 +20,27 @@ export class AccountComponent implements OnInit {
 
   getAccount(){
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-    console.debug("RESULT ", localStorage.getItem('currentUser'))
 
-    let access_token = JSON.parse(localStorage.getItem('currentUser')).access_token
+    let access_token = this.currentUser.access_token
+    let refresh_token = this.currentUser.refresh_token
+    let access_token_created_at = this.currentUser.access_token_created_at
+    let expires_in = this.currentUser.expires_in
+
+
     this.authService.getCurrentUser(access_token).then(
       (result) => {
-        // this.currentUser = result
-        // console.debug("RESULT ", localStorage.getItem('currentUser'))
+        this.currentUser = result
+        this.currentUser.access_token = access_token
+        this.currentUser.refresh_token = refresh_token
+        this.currentUser.access_token_created_at = access_token_created_at
+        this.currentUser.expires_in = expires_in
+
+
+
+
+        console.debug("RESULT ", this.currentUser)
+
+        // console.debug("RESULT ", result)
       }
     )
   }

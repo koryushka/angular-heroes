@@ -38,7 +38,7 @@ export class AuthService {
           if(response.json()){
             var access_token = response.json().access_token;
             var refresh_token = response.json().refresh_token;
-            var created_at = response.json().created_at;
+            var access_token_created_at = response.json().created_at;
             var expires_in = response.json().expires_in;
 
           }
@@ -50,7 +50,7 @@ export class AuthService {
                   email: username,
                   access_token: access_token,
                   refresh_token: refresh_token,
-                  created_at: created_at,
+                  access_token_created_at: access_token_created_at,
                   expires_in: expires_in
                 }));
                 this.localStorageSource.next()

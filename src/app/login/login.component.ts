@@ -63,9 +63,10 @@ export class LoginComponent implements OnInit {
       let strUsr = JSON.stringify({
         email: currentUser.email,
         is_admin: currentUser.is_admin,
-        created_at: cu.created_at,
+        created_at: currentUser.created_at,
         expires_in: cu.expires_in,
         access_token: cu.access_token,
+        access_token_created_at: cu.access_token_created_at,
         refresh_token: cu.refresh_token,
       })
       // this.localStorageChange.emit({
