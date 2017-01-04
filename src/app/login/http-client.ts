@@ -9,8 +9,11 @@ export class HttpClient {
   headers = new Headers({'Content-Type': 'application/json'});
 
   createAuthorizationHeader() {
-    let authToken = localStorage.getItem('auth_token');
-    this.headers.set('Authorization', `Bearer ${authToken}`)
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser){
+      let authToken = currentUser.access_token
+      this.headers.set('Authorization', `Bearer ${authToken}`)
+    }
   }
 
   get(url) {

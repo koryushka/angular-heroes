@@ -1,0 +1,8 @@
+<h3 *ngIf='currentUser'>Account {{currentUser.email}}</h3>
+<ul>
+  <li>is_admin: {{currentUser.is_admin}}</li>
+  <li>access_token: {{currentUser.access_token}}</li>
+  <li>refresh_token: {{currentUser.refresh_token}}</li>
+  <li>expires_in: {{currentUser.expires_in}}</li>
+  <li>created_at: {{currentUser.created_at}}</li>
+</ul>

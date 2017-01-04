@@ -1,18 +1,21 @@
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import { Subject }    from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
-
 import { Injectable, isDevMode} from '@angular/core';
 import { User } from '../_models/user';
 
 @Injectable()
 export class AuthService {
-    public token: string;
+      // Observable string sources
+    private localStorageSource = new Subject<string>();
 
+    // Observable string streams
+    localStorageChanged$ = this.localStorageSource.asObservable();
+    public access_token: string;
     constructor(private http: Http) {
-        // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        this.access_token = currentUser && currentUser.token;
     }
 
     private loginUrl = isDevMode() ? 'http://localhost:3000/oauth/token' : 'https://rails-heroes.herokuapp.com/oauth/token';
@@ -23,28 +26,7 @@ export class AuthService {
     headers = new Headers({'Content-Type': 'application/json'});
     error = '';
     loading = false;
-    // login2(username, password) {
-    //   let grant_type = 'password'
-    //   let params = JSON.stringify({username, password, grant_type})
-    //   return this.http.post(this.loginUrl, params, { headers: this.headers } )
-    //     .map(res => res.json())
-    //     .map((res) => {
-    //       console.debug("RESP: ", res)
-    //
-    //       // if (res) {
-    //       //   var accessToken = res.access_token
-    //       //   this.getCurrentUser(accessToken).then(user => {
-    //       //     localStorage.setItem('currentUser', JSON.stringify({email: user.email, is_admin: user.is_admin, access_token: res.access_token}));
-    //       //     this.currentUser = localStorage.getItem('currentUser')
-    //       //     this.user = JSON.parse(this.currentUser)
-    //       //     // this.user = currentUser
-    //       //     console.debug("LOGIN USR: ", this.user)
-    //       //     // return this.currentUser;
-    //       //   })
-    //       // }
-    //     });
-    //
-    // }
+    loggedIn:boolean;
 
     login(username: string, password: string): Observable<boolean> {
       this.loading = true
@@ -52,37 +34,38 @@ export class AuthService {
       let params = JSON.stringify({username, password, grant_type});
 
       return this.http.post(this.loginUrl, params, { headers: this.headers } )
-
         .map((response: Response) => {
+          if(response.json()){
+            var access_token = response.json().access_token;
+            var refresh_token = response.json().refresh_token;
+            var created_at = response.json().created_at;
+            var expires_in = response.json().expires_in;
 
-            // login successful if there's a jwt token in the response
-            let token = response.json() && response.json().access_token;
-            // let token = null;
-            console.debug('SERVICE RESULT: ', token)
+          }
 
-            if (token) {
-                // set token property
-                this.token = token;
 
-                // store username and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify({ email: username, token: token }));
-
-                // return true to indicate successful login
-                return token;
+            if (access_token) {
+                this.access_token = access_token;
+                localStorage.setItem('currentUser', JSON.stringify({
+                  // email: username,
+                  access_token: access_token,
+                  refresh_token: refresh_token,
+                  created_at: created_at,
+                  expires_in: expires_in
+                }));
+                this.localStorageSource.next()
+                return access_token;
             } else {
-                // return false to indicate failed login
-
                 return false;
             }
-
         })
-
-
-}
+    }
 
     logout() {
-      this.token = null;
+      this.access_token = null;
       localStorage.removeItem('currentUser');
+      this.localStorageSource.next()
+
     }
 
     getCurrentUser(accessToken: string): Promise<User>{
@@ -102,8 +85,6 @@ export class AuthService {
 
       console.error('permissionsError', this.permissionsError)
       this.error = 'Login error'
-
       return Promise.reject(error.message || error);
-      // return false;
     }
 }

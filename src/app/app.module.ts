@@ -14,6 +14,8 @@ import { HeroSearchComponent } from './heroes/hero-search.component';
 import { HeroComponent } from './heroes/hero.component';
 import { HeroDetailComponent } from './heroes/hero-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AccountComponent } from './account/account.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 import { HighlightDirective } from './highlight.directive';
 
@@ -35,8 +37,9 @@ import { AuthService } from './_services/auth.service';
     HeroSearchComponent,
     DashboardComponent,
     HighlightDirective,
-    LoginComponent
-
+    LoginComponent,
+    AccountComponent,
+    WelcomeComponent
   ],
   imports: [
     NgbModule.forRoot(),

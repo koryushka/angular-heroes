@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from './_services/user.service';
+import { AuthService } from './_services/auth.service';
 import { Router } from '@angular/router';
 
 import { User } from './_models/user'
@@ -9,16 +9,24 @@ import { User } from './_models/user'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[UserService]
+  providers:[AuthService]
+
 })
 export class AppComponent {
   title = 'app works!';
-  loggedIn = !!localStorage.getItem('currentUser');
-  constructor(private userService: UserService){
-    
+  currentUser:User;
+  constructor(private authService: AuthService, private router: Router){
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    authService.localStorageChanged$.subscribe(
+      currentUser => {
+        console.debug("CU: ", localStorage.getItem('currentUser'))
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+      }
+    );
   }
-  myValueChange(event) {
-    console.log("MyEvent: ",event);
-    this.loggedIn = event.loggedIn
+
+  logout(){
+    this.router.navigate(['/welcome'])
+    this.authService.logout();
   }
 }

@@ -3,14 +3,15 @@ import { Router }   from '@angular/router';
 import { Headers } from '@angular/http';
 import { Hero } from './hero';
 import { HeroService } from '../_services/hero.service'
-import { UserService } from '../_services/user.service';
+import { AuthService } from '../_services/auth.service';
+import { User } from '../_models/user';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.css'],
-  providers: [HeroService, UserService]
+  providers: [HeroService, AuthService]
 })
 
 export class HeroComponent implements OnInit {
@@ -21,8 +22,19 @@ export class HeroComponent implements OnInit {
   // @Input() userLoggedIn:boolean;
   @Input() userLoggedIn:Observable<boolean>;
 
-  constructor(private router: Router, private heroService: HeroService, private userService: UserService) {
-    this.loggedIn = this.userService.isLoggedIn();
+  // constructor(private router: Router, private heroService: HeroService, private userService: UserService) {
+  //   this.loggedIn = this.userService.isLoggedIn();
+  // }
+
+  currentUser:User;
+  constructor(private heroService: HeroService, private authService: AuthService, private router: Router){
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    authService.localStorageChanged$.subscribe(
+      currentUser => {
+        console.debug("CU: ", localStorage.getItem('currentUser'))
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+      }
+    );
   }
 
   ngOnInit(){

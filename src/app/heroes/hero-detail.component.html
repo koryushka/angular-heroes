@@ -7,6 +7,6 @@
     <input [(ngModel)]="hero.name" placeholder="name" />
   </div>
   <button (click)="goBack()">Back</button>
-  <button (click)="saveHero(hero)">Save</button>
-  <button (click)="deleteHero(hero)">Delete</button>
+  <button [hidden]='!(currentUser && currentUser.is_admin)' (click)="saveHero(hero)">Save</button>
+  <button [hidden]='!(currentUser && currentUser.is_admin)' (click)="deleteHero(hero)">Delete</button>
 </div>

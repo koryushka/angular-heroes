@@ -11,7 +11,7 @@ Logged in: {{loggedIn}}
     <span class="badge">{{hero.id}}</span> {{hero.name}}
     <button class="delete"
       (click)="deleteHero(hero); $event.stopPropagation()"
-      [hidden]='!loggedIn'>x</button>
+      [hidden]='!(currentUser && currentUser.is_admin)'>x</button>
   </li>
 </ul>
 <!--
