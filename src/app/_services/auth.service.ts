@@ -47,7 +47,7 @@ export class AuthService {
             if (access_token) {
                 this.access_token = access_token;
                 localStorage.setItem('currentUser', JSON.stringify({
-                  // email: username,
+                  email: username,
                   access_token: access_token,
                   refresh_token: refresh_token,
                   created_at: created_at,
