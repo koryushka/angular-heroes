@@ -29,9 +29,6 @@ export class UserService {
         console.debug('res: ', res)
 
         if (res) {
-
-          // localStorage.setItem('auth_token', res.access_token);
-          // this.loggedIn = true;
           var accessToken = res.access_token
           this.getCurrentUser(accessToken).then(user => {
             localStorage.setItem('currentUser', JSON.stringify({email: user.email, is_admin: user.is_admin, access_token: res.access_token}));

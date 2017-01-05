@@ -20,6 +20,7 @@ export class AccountComponent implements OnInit {
 
   getAccount(){
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    console.debug("ACCOUNT INIT CU: ",this.currentUser )
 
     let access_token = this.currentUser.access_token
     let refresh_token = this.currentUser.refresh_token

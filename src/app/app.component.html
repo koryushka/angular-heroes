@@ -7,5 +7,4 @@
 <a *ngIf='currentUser' routerLink='account'>My Account</a>
 <a *ngIf='!currentUser' routerLink='login'>Login</a>
 <span *ngIf='currentUser'>Logged in as {{currentUser.email}} <button class = 'btn btn-info btn-sm' (click) = 'logout();'>Log Out</button></span>
-
 <router-outlet></router-outlet>

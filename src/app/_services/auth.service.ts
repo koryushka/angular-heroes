@@ -42,8 +42,6 @@ export class AuthService {
             var expires_in = response.json().expires_in;
 
           }
-
-
             if (access_token) {
                 this.access_token = access_token;
                 localStorage.setItem('currentUser', JSON.stringify({
@@ -74,6 +72,35 @@ export class AuthService {
                         .toPromise()
                         .then((resp) => resp.json() as User)
                         .catch(this.handleError)
+    }
+
+    refreshToken(refresh_token: string): Observable<boolean>{
+      let grant_type='refresh_token'
+      let params = JSON.stringify({refresh_token, grant_type});
+      return this.http.post(this.loginUrl, params, { headers: this.headers } )
+                      .map(
+                        (response: Response) => {
+                          if(response.json()){
+                            var access_token = response.json().access_token;
+                            var refresh_token = response.json().refresh_token;
+                            var access_token_created_at = response.json().created_at;
+                            var expires_in = response.json().expires_in;
+                            if(access_token){
+                              let tmpUsr = JSON.parse(localStorage.getItem('currentUser'))
+                              console.debug("CURRENT USER: ", tmpUsr)
+                              tmpUsr.access_token = access_token
+                              tmpUsr.refresh_token = refresh_token
+                              tmpUsr.access_token_created_at = access_token_created_at
+                              tmpUsr.expires_in = expires_in
+                              localStorage.setItem('currentUser', JSON.stringify(tmpUsr))
+                              this.localStorageSource.next()
+                              return true
+                            }
+                        } else {
+                          return false
+                        }
+                      }
+                    )
     }
 
     raisePermError(){

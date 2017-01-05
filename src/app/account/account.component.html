@@ -4,7 +4,7 @@
   <li>access_token: {{currentUser.access_token}}</li>
   <li>refresh_token: {{currentUser.refresh_token}}</li>
   <li>expires_in: {{currentUser.expires_in}}</li>
-  <li>access_token_created_at: {{currentUser.access_token_created_at}}</li>
+  <li>access_token_created_at: {{currentUser.access_token_created_at*1000 | date:'medium'}}</li>
   <li>created_at: {{currentUser.created_at}}</li>
 
 </ul>

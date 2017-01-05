@@ -56,10 +56,8 @@ export class LoginComponent implements OnInit {
 
   getCurrentUser(access_token: any){
     this.authService.getCurrentUser(access_token).then(currentUser =>{
-      // this.user = currentUser
-      // console.debug("THISUSER: ", this.user )
+
       let cu = JSON.parse(localStorage.getItem('currentUser'))
-      console.debug("CU: ", cu)
       let strUsr = JSON.stringify({
         email: currentUser.email,
         is_admin: currentUser.is_admin,
@@ -69,9 +67,7 @@ export class LoginComponent implements OnInit {
         access_token_created_at: cu.access_token_created_at,
         refresh_token: cu.refresh_token,
       })
-      // this.localStorageChange.emit({
-      //   currentUser: strUsr
-      // })
+
       localStorage.setItem('currentUser', strUsr );
     })
 
